@@ -1,6 +1,7 @@
 #created by https://www.gitignore.io/api/eclipse,intellij,java,gradle
 *.ipr
 *.iml
+*.ids
 *.DS_Store
 ._*
 
