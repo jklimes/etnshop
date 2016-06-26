@@ -13,6 +13,8 @@ public class Product implements Serializable {
 
     private String name;
 
+    private String serialNumber;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
@@ -32,4 +34,12 @@ public class Product implements Serializable {
         this.name = name;
     }
 
+    @Column(name = "serial_number", nullable = false)
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
 }
