@@ -21,4 +21,7 @@ public interface ProductService {
 
     @Transactional(readOnly = false)
     Product getProduct(int productId);
+
+    @Transactional(readOnly = true)
+    List<Product> findProducts(String pattern);
 }

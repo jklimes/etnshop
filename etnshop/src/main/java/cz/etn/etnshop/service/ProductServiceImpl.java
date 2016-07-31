@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -38,6 +39,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProduct(int productId) {
         return productDao.get(productId);
+    }
+
+    @Override
+    public List<Product> findProducts(String pattern) {
+        return getProducts().stream()
+                .filter(product -> product.getName().contains(pattern) || product.getSerialNumber().contains(pattern))
+                .collect(Collectors.toList());
     }
 
 }

@@ -13,12 +13,7 @@
 </head>
 
 <div class="container">
-    <h2>Products</h2>
-    <form action="search">
-        <input type="text" name="pattern">
-        <input type="submit" value="Search">
-    </form>
-    <a href="new">Add new product</a>
+    <h2>Found Products</h2>
     <table class="table">
         <thead>
         <tr>
@@ -33,7 +28,6 @@
                 <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.serialNumber}</td>
-                <td><a href="edit?productId=${product.id}">Edit</a></td>
             </tr>
         </c:forEach>
         </tbody>

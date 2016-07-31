@@ -54,4 +54,11 @@ public class ProductController {
         productService.saveProduct(product);
         return "redirect:/product/list";
     }
+
+    @RequestMapping("/search")
+    public ModelAndView search(@RequestParam("pattern") String pattern) {
+        ModelAndView modelAndView = new ModelAndView("product/search");
+        modelAndView.addObject("products", productService.findProducts(pattern));
+        return modelAndView;
+    }
 }
