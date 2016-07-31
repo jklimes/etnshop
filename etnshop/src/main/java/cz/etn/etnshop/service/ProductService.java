@@ -1,22 +1,24 @@
 package cz.etn.etnshop.service;
 
-import java.util.List;
-
+import cz.etn.etnshop.dao.Product;
 import org.springframework.transaction.annotation.Transactional;
 
-import cz.etn.etnshop.dao.Product;
+import java.util.List;
 
 public interface ProductService {
-	
-	@Transactional(readOnly = false)
-	void saveProduct(Product product);
-    
-	@Transactional(readOnly = true)
-	List<Product> getProducts();
 
-	@Transactional(readOnly = false)
+    @Transactional(readOnly = false)
+    void saveProduct(Product product);
+
+    @Transactional(readOnly = true)
+    List<Product> getProducts();
+
+    @Transactional(readOnly = false)
     void deleteProduct(int productId);
 
-	@Transactional(readOnly = false)
+    @Transactional(readOnly = false)
     void updateProduct(Product product);
+
+    @Transactional(readOnly = false)
+    Product getProduct(int productId);
 }

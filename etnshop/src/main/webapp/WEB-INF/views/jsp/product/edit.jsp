@@ -12,33 +12,20 @@
     <link href="${coreCss}" rel="stylesheet"/>
 </head>
 
-<div class="container">
-    <h2>Products</h2>
-    <a href="new">Add new product</a>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Serial Number</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${products}" var="product">
-            <tr>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.serialNumber}</td>
-                <td><a href="edit?productId=${product.id}">Edit</a></td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-    <hr>
-    <footer>
-        <p>&copy; Etnetera a.s. 2015</p>
-    </footer>
-</div>
+<form action="update">
+    Id<br>
+    <input type="text" name="id" value="${product.id}" readonly><br>
+    Product Name<br>
+    <input type="text" name="name" value="${product.name}"><br>
+    Serial Number<br>
+    <input type="text" name="serialNumber" value="${product.serialNumber}" readonly><br>
+    <input type="submit" value="Save changes">
+</form>
+
+<footer>
+    <p>&copy; Etnetera a.s. 2015</p>
+</footer>
+
 
 <spring:url value="/resources/core/css/bootstrap.min.js"
             var="bootstrapJs"/>
