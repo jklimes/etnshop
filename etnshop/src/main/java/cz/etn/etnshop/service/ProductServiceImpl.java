@@ -17,7 +17,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void saveProduct(Product product) {
         productDao.saveProduct(product);
+    }
 
+    @Override
+    public void saveProduct(String name, String serialNumber) {
+        Product product = new Product();
+        product.setName(name);
+        product.setSerialNumber(serialNumber);
+        productDao.saveProduct(product);
     }
 
     @Override
@@ -28,11 +35,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(int productId) {
         productDao.deleteProduct(productId);
-
     }
 
     @Override
     public void updateProduct(Product product) {
+        productDao.updateProduct(product);
+    }
+
+    @Override
+    public void updateProduct(int productId, String name) {
+        Product product = getProduct(productId);
+        product.setName(name);
         productDao.updateProduct(product);
     }
 

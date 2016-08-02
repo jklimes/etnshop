@@ -14,9 +14,9 @@
 
 <form action="addNew">
     Product Name<br>
-    <input type="text" name="name"><br>
+    <input type="text" name="name" maxlength="255"><br>
     Serial Number<br>
-    <input type="text" name="serialNumber"><br>
+    <input type="text" name="serialNumber" maxlength="11"><br>
     <input type="submit" value="Save changes">
 </form>
 

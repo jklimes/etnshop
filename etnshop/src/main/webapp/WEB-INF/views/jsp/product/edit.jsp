@@ -16,7 +16,7 @@
     Id<br>
     <input type="text" name="id" value="${product.id}" readonly><br>
     Product Name<br>
-    <input type="text" name="name" value="${product.name}"><br>
+    <input type="text" name="name" value="${product.name}" maxlength="255"><br>
     Serial Number<br>
     <input type="text" name="serialNumber" value="${product.serialNumber}" readonly><br>
     <input type="submit" value="Save changes">

@@ -7,19 +7,25 @@ import java.util.List;
 
 public interface ProductService {
 
-    @Transactional(readOnly = false)
+    @Transactional
     void saveProduct(Product product);
+
+    @Transactional
+    void saveProduct(String name, String serialNumber);
 
     @Transactional(readOnly = true)
     List<Product> getProducts();
 
-    @Transactional(readOnly = false)
+    @Transactional
     void deleteProduct(int productId);
 
-    @Transactional(readOnly = false)
+    @Transactional
     void updateProduct(Product product);
 
-    @Transactional(readOnly = false)
+    @Transactional
+    void updateProduct(int productId, String name);
+
+    @Transactional
     Product getProduct(int productId);
 
     @Transactional(readOnly = true)

@@ -71,6 +71,23 @@ public class ProductServiceImplTest {
         assertProductByProduct(product, loadedProduct);
     }
 
+    @Test
+    public void saveProductWithNameAndSerial() throws Exception {
+        String name = "testSave";
+        String serialNumber = "00000000001";
+        productService.saveProduct(name, serialNumber);
+
+        flushAndClear();
+
+        Session session = sessionFactory.getCurrentSession();
+
+        List<Product> products = (List<Product>) session.createQuery("select p from Product p").list();
+        assertEquals(1, products.size());
+        Product product = createProduct(name, serialNumber);
+        product.setId(products.get(0).getId());
+        assertProductByProduct(product, products.get(0));
+    }
+
     private void assertProductByProduct(Product product, Product loadedProduct) {
         assertEquals(product.getId(), loadedProduct.getId());
         assertEquals(product.getName(), loadedProduct.getName());
@@ -123,6 +140,42 @@ public class ProductServiceImplTest {
 
         List<Product> loadedProducts = productService.getProducts();
         assertProductByProduct(product, loadedProducts.get(0));
+    }
+
+    @Test
+    public void updateProductNameById() throws Exception {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        Product product = products.get(0);
+        product.setName("updatedName");
+        productService.updateProduct(product.getId(), product.getName());
+
+        flushAndClear();
+
+        List<Product> loadedProducts = productService.getProducts();
+
+        assertProductByProduct(product, loadedProducts.get(0));
+    }
+
+    @Test
+    public void findProducts() {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        List<Product> found = productService.findProducts("x");
+        assertTrue(found.isEmpty());
+        found = productService.findProducts("0");
+        assertEquals(10, found.size());
+        for (int i = 0; i < products.size(); i++) {
+            assertProductByProduct(products.get(i), found.get(i));
+        }
+        found = productService.findProducts("05");
+        assertEquals(1, found.size());
+        assertProductByProduct(products.get(5), found.get(0));
+
     }
 
 }

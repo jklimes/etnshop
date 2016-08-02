@@ -1,6 +1,5 @@
 package cz.etn.etnshop.controller;
 
-import cz.etn.etnshop.dao.Product;
 import cz.etn.etnshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,9 +34,7 @@ public class ProductController {
 
     @RequestMapping("/update")
     public String update(@RequestParam("id") int productId, @RequestParam("name") String productName) {
-        Product product = productService.getProduct(productId);
-        product.setName(productName);
-        productService.updateProduct(product);
+        productService.updateProduct(productId, productName);
         return "redirect:/product/list";
     }
 
@@ -48,10 +45,7 @@ public class ProductController {
 
     @RequestMapping("/addNew")
     public String addNew(@RequestParam("name") String productName, @RequestParam("serialNumber") String serialNumber) {
-        Product product = new Product();
-        product.setName(productName);
-        product.setSerialNumber(serialNumber);
-        productService.saveProduct(product);
+        productService.saveProduct(productName, serialNumber);
         return "redirect:/product/list";
     }
 
