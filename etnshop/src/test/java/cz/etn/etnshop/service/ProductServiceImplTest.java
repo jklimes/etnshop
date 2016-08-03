@@ -1,6 +1,7 @@
 package cz.etn.etnshop.service;
 
 import cz.etn.etnshop.dao.Product;
+import cz.etn.etnshop.exception.EtnShopException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -88,6 +89,34 @@ public class ProductServiceImplTest {
         assertProductByProduct(product, products.get(0));
     }
 
+    @Test(expected = EtnShopException.class)
+    public void saveProductFailForNullName() {
+        String name = null;
+        String serialNumber = "00000000001";
+        productService.saveProduct(name, serialNumber);
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void saveProductFailForEmptyName() {
+        String name = "";
+        String serialNumber = "00000000001";
+        productService.saveProduct(name, serialNumber);
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void saveProductFailForNullSerialNumber() {
+        String name = "some value";
+        String serialNumber = null;
+        productService.saveProduct(name, serialNumber);
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void saveProductFailForEmptySerialNumber() {
+        String name = "some value";
+        String serialNumber = "";
+        productService.saveProduct(name, serialNumber);
+    }
+
     private void assertProductByProduct(Product product, Product loadedProduct) {
         assertEquals(product.getId(), loadedProduct.getId());
         assertEquals(product.getName(), loadedProduct.getName());
@@ -142,6 +171,64 @@ public class ProductServiceImplTest {
         assertProductByProduct(product, loadedProducts.get(0));
     }
 
+    @Test(expected = EtnShopException.class)
+    public void updateProductFailForNullName() throws Exception {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        Product product = products.get(0);
+        product.setName(null);
+        product.setSerialNumber("99999999999");
+        productService.updateProduct(product);
+
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void updateProductFailForEmptyName() throws Exception {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        Product product = products.get(0);
+        product.setName("");
+        product.setSerialNumber("99999999999");
+        productService.updateProduct(product);
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void updateProductFailForNullSerialNumber() throws Exception {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        Product product = products.get(0);
+        product.setName("prod");
+        product.setSerialNumber(null);
+        productService.updateProduct(product);
+
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void updateProductFailForEmptySerialNumber() throws Exception {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        Product product = products.get(0);
+        product.setName("prod");
+        product.setSerialNumber("");
+        productService.updateProduct(product);
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void updateProductFailForNullProduct() throws Exception {
+        createAndSaveProducts(10);
+        flushAndClear();
+
+        productService.updateProduct(null);
+    }
+
     @Test
     public void updateProductNameById() throws Exception {
         List<Product> products = createAndSaveProducts(10);
@@ -159,6 +246,27 @@ public class ProductServiceImplTest {
         assertProductByProduct(product, loadedProducts.get(0));
     }
 
+    @Test(expected = EtnShopException.class)
+    public void updateProductNameByIdFailForNullName() throws Exception {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        Product product = products.get(0);
+        productService.updateProduct(product.getId(), null);
+
+    }
+
+    @Test(expected = EtnShopException.class)
+    public void updateProductNameByIdFailForWrongId() throws Exception {
+        List<Product> products = createAndSaveProducts(10);
+
+        flushAndClear();
+
+        productService.updateProduct(-1000, "xyz");
+
+    }
+
     @Test
     public void findProducts() {
         List<Product> products = createAndSaveProducts(10);
@@ -167,15 +275,25 @@ public class ProductServiceImplTest {
 
         List<Product> found = productService.findProducts("x");
         assertTrue(found.isEmpty());
+
+        found = productService.findProducts("Test");
+        assertTrue(found.isEmpty());
+
         found = productService.findProducts("0");
         assertEquals(10, found.size());
         for (int i = 0; i < products.size(); i++) {
             assertProductByProduct(products.get(i), found.get(i));
         }
+
         found = productService.findProducts("05");
         assertEquals(1, found.size());
         assertProductByProduct(products.get(5), found.get(0));
 
+        found = productService.findProducts("test");
+        assertEquals(10, found.size());
+        for (int i = 0; i < products.size(); i++) {
+            assertProductByProduct(products.get(i), found.get(i));
+        }
     }
 
 }
