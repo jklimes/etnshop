@@ -26,7 +26,7 @@ public class ProductController {
     }
 
     @RequestMapping("/edit")
-    public ModelAndView edit(@RequestParam("productId") int productId) {
+    public ModelAndView edit(@RequestParam("id") int productId) {
         ModelAndView modelAndView = new ModelAndView("product/edit");
         modelAndView.addObject("product", productService.getProduct(productId));
         return modelAndView;
@@ -35,6 +35,12 @@ public class ProductController {
     @RequestMapping("/update")
     public String update(@RequestParam("id") int productId, @RequestParam("name") String productName) {
         productService.updateProduct(productId, productName);
+        return "redirect:/product/list";
+    }
+
+    @RequestMapping("/delete")
+    public String delete(@RequestParam("id") int productId) {
+        productService.deleteProduct(productId);
         return "redirect:/product/list";
     }
 

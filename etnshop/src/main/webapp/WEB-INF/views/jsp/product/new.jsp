@@ -12,11 +12,11 @@
     <link href="${coreCss}" rel="stylesheet"/>
 </head>
 
-<form action="addNew">
+<form id="new-product" action="addNew">
     Product Name<br>
-    <input type="text" name="name" maxlength="255"><br>
+    <input id="new-product-name" type="text" name="name" maxlength="255"><br>
     Serial Number<br>
-    <input type="text" name="serialNumber" maxlength="11"><br>
+    <input id="new-product-serial" type="text" name="serialNumber" maxlength="11"><br>
     <input type="submit" value="Save changes">
 </form>
 
@@ -25,10 +25,10 @@
 </footer>
 
 
-<spring:url value="/resources/core/css/bootstrap.min.js"
-            var="bootstrapJs"/>
+<spring:url value="/resources/core/js/validations.js"
+            var="validationsJs"/>
 
-<script src="${bootstrapJs}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${validationsJs}"></script>
 </body>
 </html>

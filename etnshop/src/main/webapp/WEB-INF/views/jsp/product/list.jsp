@@ -33,7 +33,8 @@
                 <td>${product.id}</td>
                 <td>${product.name}</td>
                 <td>${product.serialNumber}</td>
-                <td><a href="edit?productId=${product.id}">Edit</a></td>
+                <td><a href="edit?id=${product.id}">Edit</a></td>
+                <td><a href="delete?id=${product.id}">Delete</a></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -44,10 +45,10 @@
     </footer>
 </div>
 
-<spring:url value="/resources/core/css/bootstrap.min.js"
+<spring:url value="/resources/core/js/bootstrap.min.js"
             var="bootstrapJs"/>
 
-<script src="${bootstrapJs}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="${bootstrapJs}"></script>
 </body>
 </html>
